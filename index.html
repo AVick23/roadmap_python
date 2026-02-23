@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Python Theory Map — Справочник</title>
-  <meta name="description" content="Полный справочник по Python с проверенными источниками. Apple Style Design.">
+  <title>Python Theory Map — Полный справочник 2026</title>
+  <meta name="description" content="Полный справочник по Python с проверенными источниками. 29 тем, от основ до продвинутых концепций.">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,8 +13,7 @@
   
   <style>
     /* ============================================
-       APPLE-STYLE DESIGN SYSTEM
-       Единый стиль с сайтом "Метод познания"
+       APPLE-STYLE DESIGN SYSTEM (улучшенный UX/UI)
        ============================================ */
 
     /* 1. ПЕРЕМЕННЫЕ - ТЕМНАЯ ТЕМА (по умолчанию) */
@@ -29,11 +28,10 @@
       --text-secondary: #cccccc;
       --text-tertiary: #999999;
       
-      --accent-primary: #0a84ff; /* Apple Blue */
-      --accent-go: #00ADD8;      /* Go Cyan – заменим на Python-жёлтый? Оставим синий */
+      --accent-primary: #0a84ff;
+      --accent-go: #00ADD8;
       --accent-secondary: #30d158;
       --accent-tertiary: #ff9f0a;
-      --accent-pink: #ff375f;
       
       --border-primary: #333333;
       --border-secondary: #2a2a2a;
@@ -108,7 +106,6 @@
     /* 4. ТИПОГРАФИКА */
     h1, h2, h3, h4 { color: var(--text-primary); font-weight: var(--font-bold); line-height: 1.2; }
     h1 { font-size: var(--text-5xl); }
-    h2 { font-size: var(--text-3xl); }
     p { color: var(--text-secondary); }
 
     /* 5. КОМПОНЕНТЫ */
@@ -117,7 +114,8 @@
       margin: 0 auto;
       padding: 0 24px;
     }
-    
+
+    /* Кнопки */
     .button {
       display: inline-flex;
       align-items: center;
@@ -127,7 +125,6 @@
       border-radius: var(--radius-lg);
       font-size: var(--text-base);
       font-weight: var(--font-semibold);
-      font-family: inherit;
       cursor: pointer;
       border: none;
       transition: all var(--transition);
@@ -191,7 +188,7 @@
     }
     .theme-toggle:hover { background-color: var(--bg-tertiary); color: var(--text-primary); }
 
-    /* 7. HERO */
+    /* 7. HERO (с улучшенным UX) */
     .hero {
       padding-top: calc(var(--navbar-height) + 80px);
       padding-bottom: 40px;
@@ -215,7 +212,7 @@
       margin-bottom: 16px;
       letter-spacing: -0.02em;
     }
-    .hero-title-accent { color: var(--accent-go); } /* Оставим синий, но можно заменить на #FFD43B (Python жёлтый) */
+    .hero-title-accent { color: var(--accent-go); }
     .hero-subtitle {
       font-size: var(--text-xl);
       color: var(--text-secondary);
@@ -225,7 +222,7 @@
       margin-right: auto;
     }
 
-    /* Progress & Search */
+    /* Прогресс и поиск (с кнопкой очистки) */
     .controls-container {
       max-width: 800px;
       margin: 0 auto 40px;
@@ -245,9 +242,12 @@
     .progress-bar { height: 6px; background: var(--bg-tertiary); border-radius: var(--radius-full); overflow: hidden; }
     .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-secondary), var(--accent-primary)); transition: width 0.5s ease; }
     
+    .search-wrapper {
+      position: relative;
+    }
     .search-input {
       width: 100%;
-      padding: 16px 24px 16px 52px;
+      padding: 16px 52px 16px 52px;
       font-size: var(--text-lg);
       font-family: inherit;
       border: 1px solid var(--border-secondary);
@@ -257,15 +257,43 @@
       transition: all 0.2s;
     }
     .search-input:focus { outline: none; border-color: var(--accent-primary); box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2); }
-    .search-wrapper { position: relative; }
-    .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); }
+    .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-tertiary);
+      pointer-events: none;
+    }
+    .search-clear {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-tertiary);
+      font-size: 18px;
+      cursor: pointer;
+      display: none;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+    .search-clear:hover {
+      background-color: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+    .search-input:not(:placeholder-shown) + .search-clear {
+      display: block;
+    }
 
-    /* Filters */
+    /* Фильтры */
     .filters {
       display: flex;
       justify-content: center;
       gap: 12px;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
     }
     .filter-segment {
@@ -287,6 +315,61 @@
     }
     .filter-option.active { background: var(--bg-card); color: var(--text-primary); box-shadow: var(--shadow-card); }
     .filter-option:hover:not(.active) { color: var(--text-primary); }
+
+    /* Активные фильтры (чипсы) */
+    .active-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 20px;
+      min-height: 32px;
+    }
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background-color: var(--bg-tertiary);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-secondary);
+    }
+    .filter-chip button {
+      background: none;
+      border: none;
+      color: var(--text-tertiary);
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0 2px;
+      transition: color 0.2s;
+    }
+    .filter-chip button:hover {
+      color: var(--accent-primary);
+    }
+    .reset-all-btn {
+      background: transparent;
+      border: 1px solid var(--border-secondary);
+      color: var(--text-secondary);
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .reset-all-btn:hover {
+      background-color: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+
+    /* Результаты поиска */
+    .search-stats {
+      text-align: center;
+      font-size: var(--text-sm);
+      color: var(--text-tertiary);
+      margin-bottom: 20px;
+    }
 
     /* 8. LAYOUT (Sidebar + Content) */
     .main-layout {
@@ -338,6 +421,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      scroll-margin-top: calc(var(--navbar-height) + 20px);
     }
     .category-title:first-child { margin-top: 0; }
     .grid {
@@ -354,8 +438,9 @@
       border: 1px solid var(--border-secondary);
       display: flex;
       flex-direction: column;
-      transition: all var(--transition);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
       position: relative;
+      opacity: 1;
     }
     .card:hover {
       border-color: var(--border-primary);
@@ -384,9 +469,33 @@
       background: transparent; color: var(--text-tertiary); cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       transition: all 0.2s;
+      position: relative;
     }
     .icon-btn:hover { background: var(--bg-tertiary); color: var(--text-primary); }
     .icon-btn.active { color: var(--accent-tertiary); }
+
+    /* Тултипы */
+    .icon-btn[data-tooltip] {
+      position: relative;
+    }
+    .icon-btn[data-tooltip]:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      font-size: var(--text-xs);
+      white-space: nowrap;
+      pointer-events: none;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--border-secondary);
+      margin-bottom: 6px;
+      z-index: 10;
+    }
 
     .card-title { font-size: var(--text-lg); margin-bottom: 8px; font-weight: var(--font-bold); }
     .card-meta { font-size: var(--text-sm); color: var(--text-tertiary); margin-bottom: 12px; display: flex; gap: 12px; }
@@ -444,6 +553,11 @@
     .read-checkbox-input { display: none; }
     .read-checkbox-input:checked + .checkmark { background: var(--accent-primary); border-color: var(--accent-primary); color: #fff; }
     .read-checkbox-wrapper:hover .checkmark { border-color: var(--accent-primary); }
+
+    /* Анимация скрытия карточек */
+    .card.hidden-card {
+      display: none;
+    }
 
     /* 10. АДАПТИВНОСТЬ */
     @media (max-width: 1024px) {
@@ -528,10 +642,10 @@
 </head>
 <body>
 
-  <!-- Навигация (полностью из первого файла) -->
+  <!-- Навигация -->
   <nav class="navbar">
     <div class="container">
-      <button class="navbar-toggle" id="menuToggle">☰</button>
+      <button class="navbar-toggle" id="menuToggle" aria-label="Меню" data-tooltip="Открыть навигацию">☰</button>
       
       <a href="#" class="navbar-brand">
         <span style="color: var(--accent-go);">Python</span> Theory Map
@@ -547,8 +661,8 @@
       </ul>
 
       <div style="display: flex; gap: 8px; align-items: center;">
-        <button class="icon-btn" id="shortcutsBtn" title="Горячие клавиши">⌨️</button>
-        <button class="theme-toggle theme-toggle-desktop" id="themeToggleDesktop" aria-label="Сменить тему">
+        <button class="icon-btn" id="shortcutsBtn" data-tooltip="Горячие клавиши">⌨️</button>
+        <button class="theme-toggle theme-toggle-desktop" id="themeToggleDesktop" aria-label="Сменить тему" data-tooltip="Сменить тему">
            <svg class="icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
            <svg class="icon moon-icon" style="display:none" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         </button>
@@ -560,16 +674,16 @@
   <header class="hero">
     <div class="container">
       <div class="hero-badge">
-        <span>Справочник</span>
+        <span>Справочник 2026</span>
       </div>
       <h1 class="hero-title">Python Theory <span class="hero-title-accent">Map</span></h1>
-      <p class="hero-subtitle">Полный справочник по Python с проверенными источниками. От основ до продвинутых концепций.</p>
+      <p class="hero-subtitle">29 тем, от основ до продвинутых концепций. Отмечайте прочитанное, добавляйте в избранное.</p>
       
       <div class="controls-container">
         <div class="stats-bar">
-          <div class="stats-info" style="flex:1;">
+          <div class="stats-info">
             <div class="stats-label">
-              <span>Прочитано: <span id="readCount">0</span> из <span id="totalCount">0</span></span>
+              <span>Прочитано: <span id="readCount">0</span> из <span id="totalCount">29</span></span>
               <span id="progressPercent">0%</span>
             </div>
             <div class="progress-bar">
@@ -581,21 +695,28 @@
         <div class="search-wrapper">
           <span class="search-icon">🔍</span>
           <input type="text" id="searchInput" class="search-input" placeholder="Найти тему (например: словари, функции, классы)...">
+          <button class="search-clear" id="searchClear" aria-label="Очистить поиск">✕</button>
         </div>
       </div>
       
       <div class="filters">
         <div class="filter-segment">
-          <button class="filter-option active" data-filter="all">Все темы</button>
-          <button class="filter-option" data-filter="favorites">⭐ Избранное</button>
-          <button class="filter-option" data-filter="unread">Непрочитанные</button>
+          <button class="filter-option active" data-filter="all" data-tooltip="Показать все темы">Все темы</button>
+          <button class="filter-option" data-filter="favorites" data-tooltip="Только избранное">⭐ Избранное</button>
+          <button class="filter-option" data-filter="unread" data-tooltip="Только непрочитанное">Непрочитанные</button>
         </div>
         <div class="filter-segment">
-          <button class="filter-option" data-level="basic">Базовый</button>
-          <button class="filter-option" data-level="medium">Средний</button>
-          <button class="filter-option" data-level="advanced">Продвинутый</button>
+          <button class="filter-option" data-level="basic" data-tooltip="Базовый уровень">Базовый</button>
+          <button class="filter-option" data-level="medium" data-tooltip="Средний уровень">Средний</button>
+          <button class="filter-option" data-level="advanced" data-tooltip="Продвинутый уровень">Продвинутый</button>
         </div>
       </div>
+
+      <!-- Активные фильтры -->
+      <div class="active-filters" id="activeFilters"></div>
+
+      <!-- Статистика поиска -->
+      <div class="search-stats" id="searchStats">Показаны все темы (29)</div>
     </div>
   </header>
 
@@ -606,7 +727,7 @@
   <div class="container">
     <div class="main-layout">
       
-      <!-- Sidebar (категории из Python-версии) -->
+      <!-- Sidebar -->
       <aside class="sidebar" id="sidebar">
         <div class="sidebar-title">Навигация</div>
         <a href="#intro" class="nav-item active" data-category="intro"><span>▶ Введение</span> <span class="nav-count">5</span></a>
@@ -622,14 +743,14 @@
       <!-- Content -->
       <div class="content">
         
-        <!-- INTRO (Введение и Синтаксис) -->
+        <!-- INTRO (5 карточек) -->
         <div class="category-title" id="intro">▶ Введение и Синтаксис</div>
         <div class="grid">
           <!-- Карточка 1: Установка и Начало -->
-          <div class="card" data-title="установка настройка начало python install" data-id="setup" data-level="basic" data-time="5" data-category="intro">
+          <div class="card" data-title="установка настройка начало python install" data-id="setup" data-level="basic" data-category="intro">
             <div class="card-header">
               <div class="card-badges"><span class="badge basic">Базовый</span><span class="badge" style="background:var(--bg-tertiary)">Начало</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Установка и Начало</div>
             <div class="card-meta"><span>⏱ 5 мин</span></div>
@@ -649,10 +770,10 @@ python script.py</code></div>
           </div>
           
           <!-- Карточка 2: Переменные и Типы -->
-          <div class="card" data-title="переменные types data типы variable" data-id="variables" data-level="basic" data-time="8" data-category="intro">
+          <div class="card" data-title="переменные types data типы variable" data-id="variables" data-level="basic" data-category="intro">
             <div class="card-header">
               <div class="card-badges"><span class="badge basic">Базовый</span><span class="badge" style="background:var(--bg-tertiary)">Основы</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Переменные и Типы</div>
             <div class="card-meta"><span>⏱ 8 мин</span></div>
@@ -671,10 +792,10 @@ is_active = True</code></div>
           </div>
           
           <!-- Карточка 3: Ввод и Вывод -->
-          <div class="card" data-title="ввод вывод input print console" data-id="io" data-level="basic" data-time="6" data-category="intro">
+          <div class="card" data-title="ввод вывод input print console" data-id="io" data-level="basic" data-category="intro">
             <div class="card-header">
               <div class="card-badges"><span class="badge basic">Базовый</span><span class="badge" style="background:var(--bg-tertiary)">Взаимодействие</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Ввод и Вывод</div>
             <div class="card-meta"><span>⏱ 6 мин</span></div>
@@ -691,10 +812,10 @@ print(f"Привет, {name}!")</code></div>
           </div>
           
           <!-- Карточка 4: Строки -->
-          <div class="card" data-title="строки string текст методы f-string срезы" data-id="strings" data-level="basic" data-time="10" data-category="intro">
+          <div class="card" data-title="строки string текст методы f-string срезы" data-id="strings" data-level="basic" data-category="intro">
             <div class="card-header">
               <div class="card-badges"><span class="badge basic">Базовый</span><span class="badge" style="background:var(--bg-tertiary)">Типы</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Строки</div>
             <div class="card-meta"><span>⏱ 10 мин</span></div>
@@ -713,10 +834,10 @@ print(f"Длина: {len(s)}")</code></div>
           </div>
           
           <!-- Карточка 5: Числа и Операции -->
-          <div class="card" data-title="числа математика arithmetic math операции" data-id="numbers" data-level="basic" data-time="7" data-category="intro">
+          <div class="card" data-title="числа математика arithmetic math операции" data-id="numbers" data-level="basic" data-category="intro">
             <div class="card-header">
               <div class="card-badges"><span class="badge basic">Базовый</span><span class="badge" style="background:var(--bg-tertiary)">Математика</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Числа и Операции</div>
             <div class="card-meta"><span>⏱ 7 мин</span></div>
@@ -734,14 +855,14 @@ print(2 ** 3)    # 8 (степень)</code></div>
           </div>
         </div>
 
-        <!-- LOGIC (Логика и Циклы) -->
+        <!-- LOGIC (2 карточки) -->
         <div class="category-title" id="logic">⎔ Логика и Циклы</div>
         <div class="grid">
           <!-- Карточка 6: Условия If / Else -->
-          <div class="card" data-title="условия if else elif логика" data-id="conditions" data-level="basic" data-time="8" data-category="logic">
+          <div class="card" data-title="условия if else elif логика" data-id="conditions" data-level="basic" data-category="logic">
             <div class="card-header">
               <div class="card-badges"><span class="badge basic">Базовый</span><span class="badge" style="background:var(--bg-tertiary)">Управление</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Условия If / Else</div>
             <div class="card-meta"><span>⏱ 8 мин</span></div>
@@ -762,10 +883,10 @@ else:
           </div>
           
           <!-- Карточка 7: Циклы (For и While) -->
-          <div class="card" data-title="цикл for while loop break continue" data-id="loops" data-level="basic" data-time="10" data-category="logic">
+          <div class="card" data-title="цикл for while loop break continue" data-id="loops" data-level="basic" data-category="logic">
             <div class="card-header">
               <div class="card-badges"><span class="badge basic">Базовый</span><span class="badge" style="background:var(--bg-tertiary)">Циклы</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Циклы (For и While)</div>
             <div class="card-meta"><span>⏱ 10 мин</span></div>
@@ -785,14 +906,14 @@ while x > 0:
           </div>
         </div>
 
-        <!-- COLLECTIONS (Структуры Данных) -->
+        <!-- COLLECTIONS (4 карточки) -->
         <div class="category-title" id="collections">◇ Структуры Данных</div>
         <div class="grid">
           <!-- Карточка 8: Списки (Lists) -->
-          <div class="card" data-title="списки list array методы срезы" data-id="lists" data-level="basic" data-time="12" data-category="collections">
+          <div class="card" data-title="списки list array методы срезы" data-id="lists" data-level="basic" data-category="collections">
             <div class="card-header">
               <div class="card-badges"><span class="badge basic">Базовый</span><span class="badge" style="background:var(--bg-tertiary)">Коллекции</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Списки (Lists)</div>
             <div class="card-meta"><span>⏱ 12 мин</span></div>
@@ -811,10 +932,10 @@ print(nums[1:3])   # [2, 3]</code></div>
           </div>
           
           <!-- Карточка 9: Кортежи (Tuples) -->
-          <div class="card" data-title="кортежи tuple неизменяемый" data-id="tuples" data-level="basic" data-time="6" data-category="collections">
+          <div class="card" data-title="кортежи tuple неизменяемый" data-id="tuples" data-level="basic" data-category="collections">
             <div class="card-header">
               <div class="card-badges"><span class="badge basic">Базовый</span><span class="badge" style="background:var(--bg-tertiary)">Коллекции</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Кортежи (Tuples)</div>
             <div class="card-meta"><span>⏱ 6 мин</span></div>
@@ -832,10 +953,10 @@ print(point[0])  # 10</code></div>
           </div>
           
           <!-- Карточка 10: Словари (Dictionaries) -->
-          <div class="card" data-title="словари dictionary dict ключ значение" data-id="dicts" data-level="basic" data-time="12" data-category="collections">
+          <div class="card" data-title="словари dictionary dict ключ значение" data-id="dicts" data-level="basic" data-category="collections">
             <div class="card-header">
               <div class="card-badges"><span class="badge basic">Базовый</span><span class="badge" style="background:var(--bg-tertiary)">Коллекции</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Словари (Dictionaries)</div>
             <div class="card-meta"><span>⏱ 12 мин</span></div>
@@ -853,10 +974,10 @@ print(user.get("email", "N/A"))</code></div>
           </div>
           
           <!-- Карточка 11: Множества (Sets) -->
-          <div class="card" data-title="множества set уникальные пересечение" data-id="sets" data-level="medium" data-time="8" data-category="collections">
+          <div class="card" data-title="множества set уникальные пересечение" data-id="sets" data-level="medium" data-category="collections">
             <div class="card-header">
               <div class="card-badges"><span class="badge medium">Средний</span><span class="badge" style="background:var(--bg-tertiary)">Коллекции</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Множества (Sets)</div>
             <div class="card-meta"><span>⏱ 8 мин</span></div>
@@ -875,14 +996,14 @@ print(a | b)  # {1,2,3,4,5} объединение</code></div>
           </div>
         </div>
 
-        <!-- FUNCTIONS & OOP (Функции и ООП) -->
+        <!-- FUNCTIONS & OOP (5 карточек) -->
         <div class="category-title" id="functions">λ Функции и ООП</div>
         <div class="grid">
           <!-- Карточка 12: Функции -->
-          <div class="card" data-title="функции def arguments args kwargs return" data-id="functions" data-level="basic" data-time="15" data-category="functions">
+          <div class="card" data-title="функции def arguments args kwargs return" data-id="functions" data-level="basic" data-category="functions">
             <div class="card-header">
               <div class="card-badges"><span class="badge basic">Базовый</span><span class="badge" style="background:var(--bg-tertiary)">Код</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Функции</div>
             <div class="card-meta"><span>⏱ 15 мин</span></div>
@@ -902,10 +1023,10 @@ greet(name="Bob")   # именованный</code></div>
           </div>
           
           <!-- Карточка 13: Lambda функции -->
-          <div class="card" data-title="lambda лямбда анонимные функции" data-id="lambda" data-level="medium" data-time="8" data-category="functions">
+          <div class="card" data-title="lambda лямбда анонимные функции" data-id="lambda" data-level="medium" data-category="functions">
             <div class="card-header">
               <div class="card-badges"><span class="badge medium">Средний</span><span class="badge" style="background:var(--bg-tertiary)">Функции</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Lambda функции</div>
             <div class="card-meta"><span>⏱ 8 мин</span></div>
@@ -926,10 +1047,10 @@ sorted(nums, key=lambda x: -x)</code></div>
           </div>
           
           <!-- Карточка 14: List Comprehension -->
-          <div class="card" data-title="list dict comprehension генераторы списков" data-id="comprehension" data-level="medium" data-time="10" data-category="functions">
+          <div class="card" data-title="list dict comprehension генераторы списков" data-id="comprehension" data-level="medium" data-category="functions">
             <div class="card-header">
               <div class="card-badges"><span class="badge medium">Средний</span><span class="badge" style="background:var(--bg-tertiary)">Идиомы</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">List Comprehension</div>
             <div class="card-meta"><span>⏱ 10 мин</span></div>
@@ -949,10 +1070,10 @@ evens = [x for x in range(10) if x % 2 == 0]</code></div>
           </div>
           
           <!-- Карточка 15: Классы и Объекты -->
-          <div class="card" data-title="классы объекты oop __init__ self" data-id="classes" data-level="medium" data-time="15" data-category="functions">
+          <div class="card" data-title="классы объекты oop __init__ self" data-id="classes" data-level="medium" data-category="functions">
             <div class="card-header">
               <div class="card-badges"><span class="badge medium">Средний</span><span class="badge" style="background:var(--bg-tertiary)">ООП</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Классы и Объекты</div>
             <div class="card-meta"><span>⏱ 15 мин</span></div>
@@ -973,10 +1094,10 @@ evens = [x for x in range(10) if x % 2 == 0]</code></div>
           </div>
           
           <!-- Карточка 16: Наследование -->
-          <div class="card" data-title="наследование oop super override переопределение" data-id="inheritance" data-level="medium" data-time="12" data-category="functions">
+          <div class="card" data-title="наследование oop super override переопределение" data-id="inheritance" data-level="medium" data-category="functions">
             <div class="card-header">
               <div class="card-badges"><span class="badge medium">Средний</span><span class="badge" style="background:var(--bg-tertiary)">ООП</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Наследование</div>
             <div class="card-meta"><span>⏱ 12 мин</span></div>
@@ -995,14 +1116,14 @@ evens = [x for x in range(10) if x % 2 == 0]</code></div>
           </div>
         </div>
 
-        <!-- ADVANCED (Продвинутые темы) -->
+        <!-- ADVANCED (7 карточек) -->
         <div class="category-title" id="advanced">◈ Продвинутые темы</div>
         <div class="grid">
           <!-- Карточка 17: Работа с файлами -->
-          <div class="card" data-title="файлы file read write open with контекст" data-id="files" data-level="medium" data-time="12" data-category="advanced">
+          <div class="card" data-title="файлы file read write open with контекст" data-id="files" data-level="medium" data-category="advanced">
             <div class="card-header">
               <div class="card-badges"><span class="badge medium">Средний</span><span class="badge" style="background:var(--bg-tertiary)">Файлы</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Работа с файлами</div>
             <div class="card-meta"><span>⏱ 12 мин</span></div>
@@ -1022,10 +1143,10 @@ with open("out.txt", "w") as f:
           </div>
           
           <!-- Карточка 18: Обработка Исключений -->
-          <div class="card" data-title="ошибки исключения exceptions try except finally raise" data-id="exceptions" data-level="medium" data-time="10" data-category="advanced">
+          <div class="card" data-title="ошибки исключения exceptions try except finally raise" data-id="exceptions" data-level="medium" data-category="advanced">
             <div class="card-header">
               <div class="card-badges"><span class="badge medium">Средний</span><span class="badge" style="background:var(--bg-tertiary)">Отладка</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Обработка Исключений</div>
             <div class="card-meta"><span>⏱ 10 мин</span></div>
@@ -1046,10 +1167,10 @@ finally:
           </div>
           
           <!-- Карточка 19: Декораторы -->
-          <div class="card" data-title="декораторы decorator @wrapper обёртки" data-id="decorators" data-level="advanced" data-time="15" data-category="advanced">
+          <div class="card" data-title="декораторы decorator @wrapper обёртки" data-id="decorators" data-level="advanced" data-category="advanced">
             <div class="card-header">
               <div class="card-badges"><span class="badge advanced">Продвинутый</span><span class="badge" style="background:var(--bg-tertiary)">Функции</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Декораторы</div>
             <div class="card-meta"><span>⏱ 15 мин</span></div>
@@ -1072,10 +1193,10 @@ def slow_func(): ...</code></div>
           </div>
           
           <!-- Карточка 20: Генераторы (yield) -->
-          <div class="card" data-title="генераторы yield iterator итераторы" data-id="generators" data-level="advanced" data-time="12" data-category="advanced">
+          <div class="card" data-title="генераторы yield iterator итераторы" data-id="generators" data-level="advanced" data-category="advanced">
             <div class="card-header">
               <div class="card-badges"><span class="badge advanced">Продвинутый</span><span class="badge" style="background:var(--bg-tertiary)">Итераторы</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Генераторы (yield)</div>
             <div class="card-meta"><span>⏱ 12 мин</span></div>
@@ -1096,10 +1217,10 @@ for num in count_up(3):
           </div>
           
           <!-- Карточка 21: Async / Await -->
-          <div class="card" data-title="async await асинхронность asyncio coroutine" data-id="async" data-level="advanced" data-time="20" data-category="advanced">
+          <div class="card" data-title="async await асинхронность asyncio coroutine" data-id="async" data-level="advanced" data-category="advanced">
             <div class="card-header">
               <div class="card-badges"><span class="badge advanced">Продвинутый</span><span class="badge" style="background:var(--bg-tertiary)">Асинхронность</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Async / Await</div>
             <div class="card-meta"><span>⏱ 20 мин</span></div>
@@ -1122,10 +1243,10 @@ async def main():
           </div>
           
           <!-- Карточка 22: Контекстные менеджеры -->
-          <div class="card" data-title="context manager with __enter__ __exit__" data-id="context" data-level="advanced" data-time="10" data-category="advanced">
+          <div class="card" data-title="context manager with __enter__ __exit__" data-id="context" data-level="advanced" data-category="advanced">
             <div class="card-header">
               <div class="card-badges"><span class="badge advanced">Продвинутый</span><span class="badge" style="background:var(--bg-tertiary)">Протоколы</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Контекстные менеджеры</div>
             <div class="card-meta"><span>⏱ 10 мин</span></div>
@@ -1147,10 +1268,10 @@ async def main():
           </div>
           
           <!-- Карточка 23: Регулярные выражения -->
-          <div class="card" data-title="regex регулярные выражения re match search" data-id="regex" data-level="advanced" data-time="15" data-category="advanced">
+          <div class="card" data-title="regex регулярные выражения re match search" data-id="regex" data-level="advanced" data-category="advanced">
             <div class="card-header">
               <div class="card-badges"><span class="badge advanced">Продвинутый</span><span class="badge" style="background:var(--bg-tertiary)">Текст</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Регулярные выражения</div>
             <div class="card-meta"><span>⏱ 15 мин</span></div>
@@ -1170,14 +1291,14 @@ print(match.group())  # test@example.com</code></div>
           </div>
         </div>
 
-        <!-- TOOLS (Инструменты) -->
+        <!-- TOOLS (6 карточек) -->
         <div class="category-title" id="tools">⚙ Инструменты</div>
         <div class="grid">
           <!-- Карточка 24: JSON и CSV -->
-          <div class="card" data-title="json csv работа данные сериализация" data-id="json-csv" data-level="medium" data-time="10" data-category="tools">
+          <div class="card" data-title="json csv работа данные сериализация" data-id="json-csv" data-level="medium" data-category="tools">
             <div class="card-header">
               <div class="card-badges"><span class="badge medium">Средний</span><span class="badge" style="background:var(--bg-tertiary)">Данные</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">JSON и CSV</div>
             <div class="card-meta"><span>⏱ 10 мин</span></div>
@@ -1201,10 +1322,10 @@ with open("data.csv") as f:
           </div>
           
           <!-- Карточка 25: Модули и Пакеты -->
-          <div class="card" data-title="модули import from библиотеки пакет" data-id="modules" data-level="basic" data-time="8" data-category="tools">
+          <div class="card" data-title="модули import from библиотеки пакет" data-id="modules" data-level="basic" data-category="tools">
             <div class="card-header">
               <div class="card-badges"><span class="badge basic">Базовый</span><span class="badge" style="background:var(--bg-tertiary)">Архитектура</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Модули и Пакеты</div>
             <div class="card-meta"><span>⏱ 8 мин</span></div>
@@ -1224,10 +1345,10 @@ print(math.pi)  # 3.14159...</code></div>
           </div>
           
           <!-- Карточка 26: pip и PyPI -->
-          <div class="card" data-title="pip pypi пакеты установка требования requirements" data-id="pip" data-level="basic" data-time="8" data-category="tools">
+          <div class="card" data-title="pip pypi пакеты установка требования requirements" data-id="pip" data-level="basic" data-category="tools">
             <div class="card-header">
               <div class="card-badges"><span class="badge basic">Базовый</span><span class="badge" style="background:var(--bg-tertiary)">Менеджер</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">pip и PyPI</div>
             <div class="card-meta"><span>⏱ 8 мин</span></div>
@@ -1250,10 +1371,10 @@ pip install -r requirements.txt</code></div>
           </div>
           
           <!-- Карточка 27: Виртуальное окружение -->
-          <div class="card" data-title="venv виртуальное окружение virtualenv" data-id="venv" data-level="basic" data-time="6" data-category="tools">
+          <div class="card" data-title="venv виртуальное окружение virtualenv" data-id="venv" data-level="basic" data-category="tools">
             <div class="card-header">
               <div class="card-badges"><span class="badge basic">Базовый</span><span class="badge" style="background:var(--bg-tertiary)">Окружение</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Виртуальное окружение</div>
             <div class="card-meta"><span>⏱ 6 мин</span></div>
@@ -1276,10 +1397,10 @@ source .venv/bin/activate
           </div>
           
           <!-- Карточка 28: Git: Основы -->
-          <div class="card" data-title="git контроль версий commit branch" data-id="git" data-level="basic" data-time="10" data-category="tools">
+          <div class="card" data-title="git контроль версий commit branch" data-id="git" data-level="basic" data-category="tools">
             <div class="card-header">
               <div class="card-badges"><span class="badge basic">Базовый</span><span class="badge" style="background:var(--bg-tertiary)">Инструмент</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Git: Основы</div>
             <div class="card-meta"><span>⏱ 10 мин</span></div>
@@ -1300,10 +1421,10 @@ git merge main</code></div>
           </div>
           
           <!-- Карточка 29: Type Hints -->
-          <div class="card" data-title="type hints аннотации типов typing mypy" data-id="typehints" data-level="advanced" data-time="12" data-category="tools">
+          <div class="card" data-title="type hints аннотации типов typing mypy" data-id="typehints" data-level="advanced" data-category="tools">
             <div class="card-header">
               <div class="card-badges"><span class="badge advanced">Продвинутый</span><span class="badge" style="background:var(--bg-tertiary)">Современный</span></div>
-              <div class="card-actions"><button class="icon-btn fav-btn">☆</button></div>
+              <div class="card-actions"><button class="icon-btn fav-btn" data-tooltip="Добавить в избранное">☆</button></div>
             </div>
             <div class="card-title">Type Hints (Аннотации типов)</div>
             <div class="card-meta"><span>⏱ 12 мин</span></div>
@@ -1325,34 +1446,43 @@ def get_item(items: List[int], idx: int) -> Optional[int]:
           </div>
         </div>
 
-        <div id="no-results" class="hidden" style="text-align: center; padding: 60px; color: var(--text-tertiary);">Ничего не найдено.</div>
+        <!-- No results message -->
+        <div id="no-results" class="hidden" style="text-align: center; padding: 60px; color: var(--text-tertiary);">
+          <div style="font-size: 48px;">🔍</div>
+          <p>Ничего не найдено. Попробуйте изменить запрос или сбросить фильтры.</p>
+        </div>
+
+        <footer style="text-align: center; padding: 24px; color: var(--text-tertiary); font-size: 13px; border-top: 1px solid var(--border-secondary); margin-top: 40px;">
+          © 2026 Python Theory Map • 29 тем • Проверенные источники • Apple Design Language
+        </footer>
 
       </div>
     </div>
   </div>
 
   <!-- FAB -->
-  <button class="fab" id="fabTop" title="Наверх">↑</button>
+  <button class="fab" id="fabTop" data-tooltip="Наверх">↑</button>
   
   <!-- Toast -->
-  <div class="toast" id="toast">Сохранено</div>
+  <div class="toast" id="toast" role="status" aria-live="polite">Сохранено</div>
 
   <!-- Modal -->
-  <div class="modal-overlay" id="shortcutsModal">
+  <div class="modal-overlay" id="shortcutsModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal">
       <div class="modal-header">
-        <span>⌨️ Горячие клавиши</span>
-        <button class="icon-btn" id="closeModal">✕</button>
+        <span id="modalTitle">⌨️ Горячие клавиши</span>
+        <button class="icon-btn" id="closeModal" aria-label="Закрыть">✕</button>
       </div>
       <div style="display: grid; gap: 12px;">
         <div style="display:flex; justify-content:space-between; color:var(--text-secondary);"><span>Поиск</span><span style="font-family:monospace; background:var(--bg-tertiary); padding:2px 6px; border-radius:4px;">Ctrl+K</span></div>
-        <div style="display:flex; justify-content:space-between; color:var(--text-secondary);"><span>Тема</span><span style="font-family:monospace; background:var(--bg-tertiary); padding:2px 6px; border-radius:4px;">Ctrl+D</span></div>
+        <div style="display:flex; justify-content:space-between; color:var(--text-secondary);"><span>Сменить тему</span><span style="font-family:monospace; background:var(--bg-tertiary); padding:2px 6px; border-radius:4px;">Ctrl+D</span></div>
+        <div style="display:flex; justify-content:space-between; color:var(--text-secondary);"><span>Очистить поиск</span><span style="font-family:monospace; background:var(--bg-tertiary); padding:2px 6px; border-radius:4px;">Esc</span></div>
       </div>
     </div>
   </div>
   
   <!-- Mobile Theme Toggle -->
-  <button class="theme-toggle theme-toggle-mobile" id="themeToggleMobile" aria-label="Сменить тему">
+  <button class="theme-toggle theme-toggle-mobile" id="themeToggleMobile" aria-label="Сменить тему" data-tooltip="Сменить тему">
      <svg class="icon sun-icon-mobile" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line></svg>
      <svg class="icon moon-icon-mobile" style="display:none" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
   </button>
@@ -1365,14 +1495,14 @@ def get_item(items: List[int], idx: int) -> Optional[int]:
       const sunIcons = document.querySelectorAll('.sun-icon, .sun-icon-mobile');
       const moonIcons = document.querySelectorAll('.moon-icon, .moon-icon-mobile');
       
-      let currentTheme = localStorage.getItem('theme') || 'dark';
+      let currentTheme = localStorage.getItem('pythonMapTheme') || 'dark';
       
       const applyTheme = (theme) => {
         document.documentElement.setAttribute('data-theme', theme);
         const isDark = theme === 'dark';
         sunIcons.forEach(el => el.style.display = isDark ? 'block' : 'none');
         moonIcons.forEach(el => el.style.display = isDark ? 'none' : 'block');
-        localStorage.setItem('theme', theme);
+        localStorage.setItem('pythonMapTheme', theme);
       };
       
       applyTheme(currentTheme);
@@ -1380,6 +1510,7 @@ def get_item(items: List[int], idx: int) -> Optional[int]:
       const toggleTheme = () => {
         currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
         applyTheme(currentTheme);
+        showToast(currentTheme === 'dark' ? 'Тёмная тема включена' : 'Светлая тема включена');
       };
 
       themeToggleDesktop.addEventListener('click', toggleTheme);
@@ -1396,13 +1527,17 @@ def get_item(items: List[int], idx: int) -> Optional[int]:
       };
       
       const cards = document.querySelectorAll('.card');
+      const categoryTitles = document.querySelectorAll('.category-title');
       const searchInput = document.getElementById('searchInput');
+      const searchClear = document.getElementById('searchClear');
       const readCountEl = document.getElementById('readCount');
       const totalCountEl = document.getElementById('totalCount');
       const progressFill = document.getElementById('progressFill');
       const progressPercent = document.getElementById('progressPercent');
       const toast = document.getElementById('toast');
       const noResults = document.getElementById('no-results');
+      const activeFiltersDiv = document.getElementById('activeFilters');
+      const searchStats = document.getElementById('searchStats');
       
       // --- 3. ИНИЦИАЛИЗАЦИЯ ---
       totalCountEl.textContent = cards.length;
@@ -1424,15 +1559,176 @@ def get_item(items: List[int], idx: int) -> Optional[int]:
       
       updateStats();
 
-      // --- 4. ОБРАБОТЧИКИ ---
+      // --- 4. ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ---
+      function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+          const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+          };
+          clearTimeout(timeout);
+          timeout = setTimeout(later, wait);
+        };
+      }
+
+      function applyFilters() {
+        let visibleCount = 0;
+        const query = state.searchQuery;
+        const activeFilter = state.filter;
+        const activeLevel = state.levelFilter;
+        const activeCategory = state.categoryFilter;
+
+        cards.forEach(card => {
+          const id = card.dataset.id;
+          const title = card.dataset.title.toLowerCase();
+          const cardText = card.innerText.toLowerCase();
+          const level = card.dataset.level;
+          const category = card.dataset.category;
+          
+          const matchesSearch = !query || title.includes(query) || cardText.includes(query);
+          const matchesFilter = activeFilter === 'all' || 
+                                (activeFilter === 'favorites' && state.favorites.includes(id)) ||
+                                (activeFilter === 'unread' && !state.read[id]);
+          const matchesLevel = !activeLevel || level === activeLevel;
+          const matchesCategory = !activeCategory || category === activeCategory;
+          
+          if (matchesSearch && matchesFilter && matchesLevel && matchesCategory) {
+            card.classList.remove('hidden-card');
+            visibleCount++;
+          } else {
+            card.classList.add('hidden-card');
+          }
+        });
+
+        categoryTitles.forEach(title => {
+          const nextGrid = title.nextElementSibling;
+          if (nextGrid && nextGrid.classList.contains('grid')) {
+            const hasVisible = Array.from(nextGrid.children).some(child => !child.classList.contains('hidden-card'));
+            title.style.display = hasVisible ? 'flex' : 'none';
+            nextGrid.style.display = hasVisible ? 'grid' : 'none';
+          }
+        });
+
+        noResults.classList.toggle('hidden', visibleCount > 0);
+        
+        searchStats.textContent = visibleCount === cards.length ? 
+          `Показаны все темы (${visibleCount})` : 
+          `Найдено тем: ${visibleCount} из ${cards.length}`;
+        
+        renderActiveFilters();
+      }
+
+      function renderActiveFilters() {
+        const filters = [];
+        if (state.filter !== 'all') {
+          filters.push({ type: 'filter', value: state.filter, label: state.filter === 'favorites' ? 'Избранное' : 'Непрочитанные' });
+        }
+        if (state.levelFilter) {
+          let levelLabel = '';
+          if (state.levelFilter === 'basic') levelLabel = 'Базовый';
+          else if (state.levelFilter === 'medium') levelLabel = 'Средний';
+          else if (state.levelFilter === 'advanced') levelLabel = 'Продвинутый';
+          filters.push({ type: 'level', value: state.levelFilter, label: levelLabel });
+        }
+        if (state.categoryFilter) {
+          const catNames = {
+            intro: 'Введение',
+            logic: 'Логика',
+            collections: 'Структуры',
+            functions: 'Функции/ООП',
+            advanced: 'Продвинутые',
+            tools: 'Инструменты'
+          };
+          filters.push({ type: 'category', value: state.categoryFilter, label: catNames[state.categoryFilter] || state.categoryFilter });
+        }
+        if (state.searchQuery) {
+          filters.push({ type: 'search', value: state.searchQuery, label: `Поиск: "${state.searchQuery}"` });
+        }
+
+        if (filters.length === 0) {
+          activeFiltersDiv.innerHTML = '';
+          return;
+        }
+
+        let html = '';
+        filters.forEach(f => {
+          html += `<span class="filter-chip">${f.label} <button class="remove-filter" data-type="${f.type}" data-value="${f.value}">✕</button></span>`;
+        });
+        html += `<button class="reset-all-btn" id="quickReset">Сбросить все</button>`;
+        activeFiltersDiv.innerHTML = html;
+
+        document.querySelectorAll('.remove-filter').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const type = e.target.dataset.type;
+            const value = e.target.dataset.value;
+            if (type === 'filter') {
+              state.filter = 'all';
+              document.querySelectorAll('.filter-option[data-filter]').forEach(b => b.classList.remove('active'));
+              document.querySelector('.filter-option[data-filter="all"]').classList.add('active');
+            } else if (type === 'level') {
+              state.levelFilter = null;
+              document.querySelectorAll('.filter-option[data-level]').forEach(b => b.classList.remove('active'));
+            } else if (type === 'category') {
+              state.categoryFilter = null;
+              document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
+              document.querySelector('.nav-item[data-category="intro"]').classList.add('active');
+            } else if (type === 'search') {
+              state.searchQuery = '';
+              searchInput.value = '';
+            }
+            applyFilters();
+          });
+        });
+
+        document.getElementById('quickReset')?.addEventListener('click', resetAllFilters);
+      }
+
+      function resetAllFilters() {
+        state.filter = 'all';
+        state.levelFilter = null;
+        state.categoryFilter = null;
+        state.searchQuery = '';
+        searchInput.value = '';
+
+        document.querySelectorAll('.filter-option').forEach(b => b.classList.remove('active'));
+        document.querySelector('.filter-option[data-filter="all"]').classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
+        document.querySelector('.nav-item[data-category="intro"]').classList.add('active');
+
+        applyFilters();
+        showToast('Фильтры сброшены');
+      }
       
-      // Поиск
+      function updateStats() {
+        const readTotal = Object.values(state.read).filter(Boolean).length;
+        const percent = Math.round((readTotal / cards.length) * 100) || 0;
+        readCountEl.textContent = readTotal;
+        progressPercent.textContent = percent + '%';
+        progressFill.style.width = percent + '%';
+      }
+      
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      }
+
+      // --- 5. ОБРАБОТЧИКИ ---
+      
+      const debouncedFilter = debounce(applyFilters, 200);
       searchInput.addEventListener('input', (e) => {
         state.searchQuery = e.target.value.toLowerCase();
-        applyFilters();
+        debouncedFilter();
       });
-      
-      // Фильтры
+
+      searchClear.addEventListener('click', () => {
+        searchInput.value = '';
+        state.searchQuery = '';
+        applyFilters();
+        searchInput.focus();
+      });
+
       document.querySelectorAll('.filter-option').forEach(btn => {
         btn.addEventListener('click', function() {
            const filter = this.dataset.filter;
@@ -1455,7 +1751,6 @@ def get_item(items: List[int], idx: int) -> Optional[int]:
         });
       });
       
-      // Сайдбар
       const menuToggle = document.getElementById('menuToggle');
       const sidebar = document.getElementById('sidebar');
       const sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -1486,24 +1781,11 @@ def get_item(items: List[int], idx: int) -> Optional[int]:
         });
       });
       
-      // Сброс фильтров
       document.getElementById('resetFilters').addEventListener('click', (e) => {
         e.preventDefault();
-        state.filter = 'all';
-        state.levelFilter = null;
-        state.categoryFilter = null;
-        state.searchQuery = '';
-        searchInput.value = '';
-        
-        document.querySelectorAll('.filter-option').forEach(b => b.classList.remove('active'));
-        document.querySelector('.filter-option[data-filter="all"]').classList.add('active');
-        document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
-        
-        applyFilters();
-        showToast('Фильтры сброшены');
+        resetAllFilters();
       });
 
-      // Карточки
       cards.forEach(card => {
         const id = card.dataset.id;
         const checkbox = card.querySelector('.read-checkbox-input');
@@ -1514,7 +1796,7 @@ def get_item(items: List[int], idx: int) -> Optional[int]:
           localStorage.setItem('pythonMapRead', JSON.stringify(state.read));
           card.style.opacity = checkbox.checked ? '0.6' : '1';
           updateStats();
-          showToast(checkbox.checked ? 'Прочитано ✓' : 'Метка снята');
+          showToast(checkbox.checked ? 'Отмечено как прочитанное' : 'Метка снята');
         });
         
         favBtn.addEventListener('click', () => {
@@ -1522,23 +1804,24 @@ def get_item(items: List[int], idx: int) -> Optional[int]:
             state.favorites = state.favorites.filter(f => f !== id);
             favBtn.classList.remove('active');
             favBtn.textContent = '☆';
+            showToast('Удалено из избранного');
           } else {
             state.favorites.push(id);
             favBtn.classList.add('active');
             favBtn.textContent = '⭐';
+            showToast('Добавлено в избранное');
           }
           localStorage.setItem('pythonMapFav', JSON.stringify(state.favorites));
+          if (state.filter === 'favorites') applyFilters();
         });
       });
       
-      // FAB
       const fab = document.getElementById('fabTop');
       window.addEventListener('scroll', () => {
         fab.classList.toggle('visible', window.scrollY > 300);
       });
       fab.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
-      // Modal
       document.getElementById('shortcutsBtn').addEventListener('click', () => {
         document.getElementById('shortcutsModal').classList.add('show');
       });
@@ -1546,51 +1829,6 @@ def get_item(items: List[int], idx: int) -> Optional[int]:
         document.getElementById('shortcutsModal').classList.remove('show');
       });
 
-      // --- 5. ФУНКЦИИ ---
-      
-      function applyFilters() {
-        let visibleCount = 0;
-        
-        cards.forEach(card => {
-          const id = card.dataset.id;
-          const title = card.dataset.title.toLowerCase();
-          const content = card.innerText.toLowerCase();
-          const level = card.dataset.level;
-          const category = card.dataset.category;
-          
-          const matchSearch = !state.searchQuery || title.includes(state.searchQuery) || content.includes(state.searchQuery);
-          const matchFilter = state.filter === 'all' || 
-                              (state.filter === 'favorites' && state.favorites.includes(id)) ||
-                              (state.filter === 'unread' && !state.read[id]);
-          const matchLevel = !state.levelFilter || level === state.levelFilter;
-          const matchCategory = !state.categoryFilter || category === state.categoryFilter;
-          
-          if (matchSearch && matchFilter && matchLevel && matchCategory) {
-            card.style.display = 'flex';
-            visibleCount++;
-          } else {
-            card.style.display = 'none';
-          }
-        });
-        
-        noResults.classList.toggle('hidden', visibleCount > 0);
-      }
-      
-      function updateStats() {
-        const readTotal = Object.values(state.read).filter(Boolean).length;
-        const percent = Math.round((readTotal / cards.length) * 100);
-        readCountEl.textContent = readTotal;
-        progressPercent.textContent = percent + '%';
-        progressFill.style.width = percent + '%';
-      }
-      
-      function showToast(message) {
-        toast.textContent = message;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
-      }
-      
-      // Горячие клавиши
       document.addEventListener('keydown', (e) => {
         if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
           e.preventDefault();
@@ -1600,8 +1838,34 @@ def get_item(items: List[int], idx: int) -> Optional[int]:
           e.preventDefault();
           toggleTheme();
         }
+        if (e.key === 'Escape') {
+          if (document.getElementById('shortcutsModal').classList.contains('show')) {
+            document.getElementById('shortcutsModal').classList.remove('show');
+          } else if (sidebar.classList.contains('open')) {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('show');
+          } else if (searchInput.value) {
+            searchInput.value = '';
+            state.searchQuery = '';
+            applyFilters();
+          }
+        }
       });
 
+      const observerOptions = { rootMargin: '-20% 0px -80% 0px' };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            document.querySelectorAll('.nav-item[data-category]').forEach(link => {
+              link.classList.toggle('active', link.dataset.category === id);
+            });
+          }
+        });
+      }, observerOptions);
+      categoryTitles.forEach(title => observer.observe(title));
+
+      applyFilters();
     });
   </script>
 </body>
